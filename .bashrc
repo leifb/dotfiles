@@ -7,14 +7,14 @@ iatest=$(expr index "$-" i)
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+  . /etc/bashrc
 fi
 
 # Enable bash programmable completion features in interactive shells
 if [ -f /usr/share/bash-completion/bash_completion ]; then
-	. /usr/share/bash-completion/bash_completion
+  . /usr/share/bash-completion/bash_completion
 elif [ -f /etc/bash_completion ]; then
-	. /etc/bash_completion
+  . /etc/bash_completion
 fi
 
 #######################################################
@@ -86,7 +86,6 @@ export NVM_DIR="$HOME/.nvm"
 alias da='date "+%Y-%m-%d %A %T %Z"'
 
 # Alias's to modified commands
-alias rm='rm -v'
 alias mkdir='mkdir -p'
 
 # ls
@@ -104,30 +103,30 @@ alias vim='nvim'
 
 # Extracts any archive(s) (if unp isn't installed)
 extract() {
-	for archive in $*; do
-		if [ -f $archive ]; then
-			case $archive in
-			*.tar.bz2) tar xvjf $archive ;;
-			*.tar.gz) tar xvzf $archive ;;
-			*.bz2) bunzip2 $archive ;;
-			*.rar) rar x $archive ;;
-			*.gz) gunzip $archive ;;
-			*.tar) tar xvf $archive ;;
-			*.tbz2) tar xvjf $archive ;;
-			*.tgz) tar xvzf $archive ;;
-			*.zip) unzip $archive ;;
-			*.Z) uncompress $archive ;;
-			*.7z) 7z x $archive ;;
-			*) echo "don't know how to extract '$archive'..." ;;
-			esac
-		else
-			echo "'$archive' is not a valid file!"
-		fi
-	done
+  for archive in $*; do
+    if [ -f $archive ]; then
+      case $archive in
+      *.tar.bz2) tar xvjf $archive ;;
+      *.tar.gz) tar xvzf $archive ;;
+      *.bz2) bunzip2 $archive ;;
+      *.rar) rar x $archive ;;
+      *.gz) gunzip $archive ;;
+      *.tar) tar xvf $archive ;;
+      *.tbz2) tar xvjf $archive ;;
+      *.tgz) tar xvzf $archive ;;
+      *.zip) unzip $archive ;;
+      *.Z) uncompress $archive ;;
+      *.7z) 7z x $archive ;;
+      *) echo "don't know how to extract '$archive'..." ;;
+      esac
+    else
+      echo "'$archive' is not a valid file!"
+    fi
+  done
 }
 
 parse_git_branch() {
-	git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+  git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
 #######################################################
@@ -136,55 +135,56 @@ parse_git_branch() {
 
 alias cpu="grep 'cpu ' /proc/stat | awk '{usage=(\$2+\$4)*100/(\$2+\$4+\$5)} END {print usage}' | awk '{printf(\"%.1f\n\", \$1)}'"
 function __setprompt {
-	local LAST_COMMAND=$? # Must come first!
+  local LAST_COMMAND=$? # Must come first!
 
-	# Define colors
-	local LIGHTGRAY="\033[0;37m"
-	local WHITE="\033[1;37m"
-	local BLACK="\033[0;30m"
-	local DARKGRAY="\033[1;30m"
-	local RED="\033[0;31m"
-	local LIGHTRED="\033[1;31m"
-	local GREEN="\033[0;32m"
-	local LIGHTGREEN="\033[1;32m"
-	local BROWN="\033[0;33m"
-	local BBROWN="\033[1;33m"
-	local YELLOW="\033[1;33m"
-	local BLUE="\033[0;34m"
-	local LIGHTBLUE="\033[1;34m"
-	local MAGENTA="\033[0;35m"
-	local LIGHTMAGENTA="\033[1;35m"
-	local CYAN="\033[0;36m"
-	local LIGHTCYAN="\033[1;36m"
-	local NOCOLOR="\033[0m"
+  # Define colors
+  local LIGHTGRAY="\033[0;37m"
+  local WHITE="\033[1;37m"
+  local BLACK="\033[0;30m"
+  local DARKGRAY="\033[1;30m"
+  local RED="\033[0;31m"
+  local LIGHTRED="\033[1;31m"
+  local GREEN="\033[0;32m"
+  local LIGHTGREEN="\033[1;32m"
+  local BROWN="\033[0;33m"
+  local BBROWN="\033[1;33m"
+  local YELLOW="\033[1;33m"
+  local BLUE="\033[0;34m"
+  local LIGHTBLUE="\033[1;34m"
+  local MAGENTA="\033[0;35m"
+  local LIGHTMAGENTA="\033[1;35m"
+  local CYAN="\033[0;36m"
+  local LIGHTCYAN="\033[1;36m"
+  local NOCOLOR="\033[0m"
 
-	PS1=""
+  PS1=""
 
-	# Show if root (usually does not apply, since this config is just for ~)
-	if [[ $EUID -eq 0 ]]; then
-		PS1+="[\[${LIGHTRED}\]\u\[${NOCOLOR}\]]"
-	fi
+  # Show if root (usually does not apply, since this config is just for ~)
+  if [[ $EUID -eq 0 ]]; then
+    PS1+="[\[${LIGHTRED}\]\u\[${NOCOLOR}\]]"
+  fi
 
-	# Current directory
-	PS1+="\[${BBROWN}\]\W "
+  # Current directory
+  PS1+="\[${BBROWN}\]\W "
 
-	# git branch
-	PS1+="\[${LIGHTBLUE}\]\$(parse_git_branch)\[${NOCOLOR}\]"
+  # git branch
+  PS1+="\[${LIGHTBLUE}\]\$(parse_git_branch)\[${NOCOLOR}\]"
 
-	# show ">"
-	if [[ $EUID -ne 0 ]]; then
-		PS1+="\[${LIGHTGREEN}\]>\[${NOCOLOR}\] " # Normal user
-		PS2="\[${LIGHTGREEN}\]>\[${NOCOLOR}\] "
-	else
-		PS1+="\[${LIGHTRED}\]>\[${NOCOLOR}\] " # Root user
-		PS2="\[${LIGHTRED}\]>\[${NOCOLOR}\] "
-	fi
+  # show ">"
+  if [[ $EUID -ne 0 ]]; then
+    PS1+="\[${LIGHTGREEN}\]>\[${NOCOLOR}\] " # Normal user
+    PS2="\[${LIGHTGREEN}\]>\[${NOCOLOR}\] "
+  else
+    PS1+="\[${LIGHTRED}\]>\[${NOCOLOR}\] " # Root user
+    PS2="\[${LIGHTRED}\]>\[${NOCOLOR}\] "
+  fi
 
-	# PS3 is used to enter a number choice in a script
-	PS3='Please enter a number from above list: '
+  # PS3 is used to enter a number choice in a script
+  PS3='Please enter a number from above list: '
 
-	# PS4 is used for tracing a script in debug mode
-	PS4="\[${DARKGRAY}\]+\[${NOCOLOR}\] "
+  # PS4 is used for tracing a script in debug mode
+  PS4="\[${DARKGRAY}\]+\[${NOCOLOR}\] "
 
 }
 PROMPT_COMMAND='__setprompt'
+. "$HOME/.deno/env"
