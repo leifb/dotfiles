@@ -97,6 +97,9 @@ alias ll='ls -aFls'              # long listing format
 # start vim
 alias vim='nvim'
 
+# Lazygit
+alias lg='lazygit'
+
 #######################################################
 # SPECIAL FUNCTIONS
 #######################################################
