@@ -187,4 +187,13 @@ function __setprompt {
 
 }
 PROMPT_COMMAND='__setprompt'
-. "$HOME/.deno/env"
+
+# Additional sources
+# Deno
+if [ -e "$HOME/.deno/env" ]; then
+  . "$HOME/.deno/env"
+fi
+# homebrew
+if [ -d /home/linuxbrew ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
