@@ -89,10 +89,10 @@ alias da='date "+%Y-%m-%d %A %T %Z"'
 alias mkdir='mkdir -p'
 
 # ls
-alias l='ls -lah'
-alias la='ls -Alh'               # show hidden files
-alias ls='ls -Fh --color=always' # add colors and file type extensions
-alias ll='ls -aFls'              # long listing format
+alias ls='ls -h --color=always' # Always human readable and in color
+alias l='ls -1'                 # l  -> one column
+alias ll='ls -Al'               # ll -> almost all long
+alias la='ls -alF'              # la -> all + type at end
 
 # start vim
 alias vim='nvim'
@@ -208,3 +208,4 @@ export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
 # go
 export PATH="$HOME/go/bin:$PATH"
 
+. "$HOME/.cargo/env"
